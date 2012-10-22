@@ -39,7 +39,7 @@ alias lopt='cd /opt'
 alias ls='ls -CF'
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF
+alias l='ls -CF'
 
 ############################################################################
 
