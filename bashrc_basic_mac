@@ -40,6 +40,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+#Versionning aliases
+alias svndelall='svn st | grep '^?' | awk '{print $2}' | xargs rm -rf'
+
 ############################################################################
 
 # If not running interactively, don't do anything
