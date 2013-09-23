@@ -143,16 +143,6 @@ fi
 
 ################################################################################################
 
-#Dedicated MAC OSX Software
-
-#MACPORT
-#export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-
-#FINK
-#test -r /sw/bin/init.sh && . /sw/bin/init.sh
-
-################################################################################################
-
 # BASH COMMANDS AT SHELL START
 clear
 echo "Welcome "$USER" to XTerminal !..."
