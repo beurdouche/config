@@ -1,5 +1,5 @@
 #
-# BENJAMIN BEURDOUCHE - CLIENT  & SERVER VERSIONS (MAC, LINUX)
+# BENJAMIN BEURDOUCHE - CLIENT & SERVER VERSIONS (MAC, LINUX)
 #
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -11,9 +11,8 @@
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/opt/local/bin:/opt/local/sbin:/bin:/sbin"
 
 #General Commands
-alias lupdate='sudo apt-get update'
-alias lupgrade='sudo apt-get upgrade'
-alias ldupgrade='sudo apt-get dist-upgrade'
+alias lupdate='sudo brew update'
+alias lupgrade='sudo brew upgrade'
 
 #Local directories
 alias safe='cd ~/Safe'
