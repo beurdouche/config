@@ -1,31 +1,28 @@
 #
-# BENJAMIN BEURDOUCHE - CLIENT & SERVER VERSIONS (MAC, LINUX)
+# BENJAMIN BEURDOUCHE
 #
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+#
 
-
-# BASH COMMANDS HAVE BEEN IMPLEMENTED AT THE END OF THIS FILE
+#########################################################################
 
 #Path
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/opt/local/bin:/opt/local/sbin:/bin:/sbin"
 
-#General Commands
-alias lupdate='sudo brew update'
-alias lupgrade='sudo brew upgrade'
+export PATH="/opt/local/bin:/usr/local/bin:/usr/texbin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+export DYLD_LIBRARY_PATH="/opt/intel/lib:DYLD_LIBRARY_PATH"
+
+#########################################################################
 
 #Local directories
+
 alias safe='cd ~/Safe'
 alias work='cd ~/Work'
-alias dev='cd ~/Work/supinfo/Projects/development'
-alias supinfo='cd ~/Work/supinfo'
 alias inria='cd ~/Work/inria'
+alias supinfo='cd ~/Work/supinfo'
 alias echanges='cd ~/Echanges'
 alias scripts='cd ~/Scripts'
 alias private='cd ~/Private'
 alias pconfig='cd ~/Configuration'
 
-#Local directories
 alias ltools='cd /Ressources'
 alias lsources='cd /Ressources/sources'
 alias lscripts='cd /Ressources/scripts'
@@ -33,14 +30,120 @@ alias lpackages='cd /Ressources/packages'
 alias larchives='cd /Ressources/archives'
 alias lopt='cd /opt'
 
+#########################################################################
+
 #Command aliases
-alias ls='ls -CF'
-alias ll='ls -alF'
+
+alias ls='ls -CGF'
+alias ll='ls -alhF'
 alias la='ls -A'
 alias l='ls -CF'
 
-#Versionning aliases
-alias svndelall='svn st | grep '^?' | awk '{print $2}' | xargs rm -rf'
+alias cd..='cd ..'
+alias cd..2='cd ../../'
+alias cd..3='cd ../../../'
+alias cd..4='cd ../../../../'
+alias cd..5='cd ../../../../../'
+
+alias mkdir='mkdir -pv'
+alias diff='colordiff'
+alias mount='mount |column -t'
+alias wget='wget -c'
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+
+alias ping='ping -c 10'
+alias fastping='ping -c 100 -s 2'
+
+alias chrome='open -a /Applications/Google\ Chrome.app/'
+
+#########################################################################
+
+#Sublime
+export EDITOR='sublime -w'
+
+#Subversion
+export SVN_EDITOR=vim
+
+#Root
+#`. $(brew --prefix root)/libexec/thisroot.sh`
+
+#Mozilla builds
+export MOZBUILD_STATE_PATH=/opt/mozilla/
+
+#Pip
+alias pip-upgrade-all='pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip install -U'
+
+#OPAM configuration
+. /Users/$USER/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+#Completion scripts
+source /usr/local/etc/bash_completion.d/git-completion.bash
+source /usr/local/etc/bash_completion.d/git-prompt.sh
+source /usr/local/etc/bash_completion.d/hg-completion.bash
+source /usr/local/etc/bash_completion.d/npm
+source /usr/local/etc/bash_completion.d/opam_completion.sh
+source /usr/local/etc/bash_completion.d/rabbitmqadmin.bash
+
+
+
+############################################################################
+
+# APIs SECRETS
+
+export HOMEBREW_GITHUB_API_TOKEN=""
+export FREEMOBILE_ID=""
+export FREEMOBILE_TOKEN=""
+
+############################################################################
+
+#Functions aliases
+
+alias switchn=funct_switchn
+alias sms=funct_sms
+alias gpgverif=funct_gpgverif
+alias gpg-import-sigkey=funct_gpgverif
+alias dmgtize=funct_dmgtize
+
+#Functions
+
+#Switch two files names
+funct_switchn(){
+ mv $1 $1.bak
+ mv $2 $1
+ mv $1.bak $2
+ echo "Filenames switched"
+}
+
+#Send an sms to my phone using Free's API
+funct_sms(){
+wget --no-check-certificate -O /dev/null -q -t 1 "https://smsapi.free-mobile.fr/sendmsg?user=$FREEMOBILE_ID&pass=$FREEMOBILE_TOKEN&msg=$1"
+}
+
+#Verify GPG signature
+funct_gpgverif(){
+ echo "Checking file against signature"
+ gpg2 --keyid-format long --verify $1 $2
+}
+
+#Import GPG signing key
+funct_gpg-import-sigkey(){
+ echo "Import signature key"
+ cat $1 | gpg2 --keyid-format long --import
+}
+
+#Convert an .iso image to .dmg image
+funct_dmgtize(){
+echo "Converting ISO image to DMG"
+hdiutil convert -format UDRW -o `echo $1 | sed -e "s/.iso$//g"` $1
+}
 
 ############################################################################
 
@@ -142,16 +245,8 @@ fi
 
 ################################################################################################
 
-#Dedicated MAC OSX Software
-
-#MACPORT
-#export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-
-#FINK
-#test -r /sw/bin/init.sh && . /sw/bin/init.sh
-
-################################################################################################
 
 # BASH COMMANDS AT SHELL START
 clear
 echo "Welcome "$USER" to XTerminal !..."
+
