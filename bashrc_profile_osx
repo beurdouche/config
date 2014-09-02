@@ -111,6 +111,7 @@ alias sms=funct_sms
 alias gpgverif=funct_gpgverif
 alias gpg-import-sigkey=funct_gpgverif
 alias dmgtize=funct_dmgtize
+alias killscreens=funct_killscreens
 
 #Functions
 
@@ -143,6 +144,11 @@ funct_gpg-import-sigkey(){
 funct_dmgtize(){
 echo "Converting ISO image to DMG"
 hdiutil convert -format UDRW -o `echo $1 | sed -e "s/.iso$//g"` $1
+}
+
+# Kill all detached screens
+funct_killscreens(){
+    screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
 }
 
 ############################################################################
